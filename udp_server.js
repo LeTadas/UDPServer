@@ -1,12 +1,10 @@
-var udp = require('dgram');
+const udp = require('dgram');
 
 // Creating a udp server
-var server = udp.createSocket('udp4');
-var ipAddress = "192.168.178.94"
-var port = 2222
+const server = udp.createSocket('udp4');
+const port = process.env.PORT || 5000
 
-server.bind(port, ipAddress);
-// server.connect(port, ipAddress);
+server.bind(port);
 
 // Emits errors
 server.on('error', function(error) {
@@ -35,26 +33,6 @@ server.on('message', function(msg, info) {
         }
     });
 });
-
-//Sending message
-
-// server.send(data, port, ipAddress, function(error) {
-//         if(error) {
-//             client.close();
-//         }else {
-//             console.log('Data sent !!');
-//         }
-// });
-
-setTimeout(function(){
-  server.send(data, port, ipAddress, function(error) {
-    if(error) {
-        client.close();
-    }else {
-        console.log('Data sent !!');
-    }
-});
-},8000);
 
 // Emits when socket is ready and listening for datagram msgs
 server.on('listening',function(){
